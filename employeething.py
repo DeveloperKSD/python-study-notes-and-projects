@@ -35,3 +35,29 @@ category_metrics=df.groupby('Category').agg(
 ).sort_values(by='Total_Revenue',ascending=False)
 
 print(category_metrics)
+
+fig, ax = plt.subplots(1, 2, figsize=(14, 6))
+
+# Subplot 1: Bar Chart showing Revenue per Category
+colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']
+ax[0].bar(category_metrics.index, category_metrics['Total_Revenue'], color=colors, edgecolor='black')
+ax[0].set_title('Total Revenue Generated per Category', fontsize=12, fontweight='bold')
+ax[0].set_xlabel('Product Category')
+ax[0].set_ylabel('Revenue ($)')
+ax[0].grid(axis='y', linestyle='--', alpha=0.7)
+
+# Subplot 2: Line Plot showing Cumulative Sales over Time
+df_time = df.sort_values('Date')
+cumulative_revenue = df_time['TotalRevenue'].cumsum()
+
+ax[1].plot(df_time['Date'], cumulative_revenue, color='#9467bd', linewidth=2.5, label='Cumulative Sum')
+ax[1].set_title('Cumulative Store Revenue Growth Over Time', fontsize=12, fontweight='bold')
+ax[1].set_xlabel('Timeline')
+ax[1].set_ylabel('Total Accrued Revenue ($)')
+ax[1].tick_params(axis='x', rotation=30)  # Tilt labels so they don't overlap
+ax[1].grid(True, linestyle=':', alpha=0.6)
+ax[1].legend()
+
+# Prevent overlapping plots and show
+plt.tight_layout()
+plt.show()

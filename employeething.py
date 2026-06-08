@@ -27,3 +27,11 @@ df['UnitPrice']=df['UnitPrice']
 df['TotalRevenue']=df['Quantity']*df['UnitPrice']
 df['OrderSize']=pd.cut(df['Quantity'],bins=[0,3,6,10],labels=['small','medium','large'])
 print(df.head())
+
+category_metrics=df.groupby('Category').agg(
+    Total_Revenue=('TotalRevenue','sum'),
+    Average_Price=('UnitPrice','mean'),
+    Total_Quantity=('Quantity','sum')
+).sort_values(by='Total_Revenue',ascending=False)
+
+print(category_metrics)

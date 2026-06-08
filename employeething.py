@@ -20,3 +20,10 @@ df = pd.DataFrame({
 
 df.loc[np.ramon.choice(100,5,replace=False),'UnitPrice']=np.nan
 print(df.head())
+
+median_price=df['UnitPrice'].median()
+df['UnitPrice']=df['UnitPrice']
+
+df['TotalRevenue']=df['Quantity']*df['UnitPrice']
+df['OrderSize']=pd.cut(df['Quantity'],bins=[0,3,6,10],labels=['small','medium','large'])
+print(df.head())

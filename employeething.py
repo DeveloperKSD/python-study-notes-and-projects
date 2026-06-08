@@ -19,3 +19,4 @@ df = pd.DataFrame({
 )
 
 df.loc[np.ramon.choice(100,5,replace=False),'UnitPrice']=np.nan
+print(df.head())
